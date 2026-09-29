@@ -12,14 +12,10 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 # CMS must win over the app server on /admin
+# Keep THIS ONE (exact match)
 [[redirects]]
   from = "/admin"
   to = "/admin/index.html"
   status = 200
   force = true
 
-[[redirects]]
-  from = "/admin/*"
-  to = "/admin/index.html"
-  status = 200
-  force = true
