@@ -1,0 +1,94 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: public/uploads
+public_folder: /uploads
+display_url: /
+site_url: /
+logo_url: /favicon.svg
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  - name: places
+    label: Places
+    label_singular: Place
+    folder: content/places
+    create: true
+    delete: true
+    extension: json
+    format: json
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{location}}"
+    editor:
+      preview: false
+    fields:
+      - { label: Place name, name: title, widget: string, hint: "The name visitors see. Example: Chapultepec Castle" }
+      - { label: Region / city, name: location, widget: string, hint: "Example: Mexico City" }
+      - { label: Country, name: country, widget: string, hint: "The real country — Mexico, South Africa, India, Nepal…" }
+      - { label: Date, name: date, widget: datetime, date_format: YYYY-MM-DD, time_format: false }
+      - {
+          label: Latitude,
+          name: lat,
+          widget: number,
+          value_type: float,
+          required: true,
+          hint: "Google Maps: right-click the exact spot → copy coordinates. FIRST number.",
+        }
+      - {
+          label: Longitude,
+          name: lng,
+          widget: number,
+          value_type: float,
+          required: true,
+          hint: "SECOND number from those coordinates. Example Leh: 34.1526, 77.5771",
+        }
+      - {
+          label: Note,
+          name: description,
+          widget: markdown,
+          required: false,
+          hint: "Write normally. Paragraphs stay paragraphs. Use - for bullets, 1. for numbered lists.",
+        }
+      - label: Photos
+        name: photos
+        widget: list
+        required: false
+        hint: "Add as many photos as you want, from this computer."
+        field:
+          label: Photo
+          name: photo
+          widget: image
+          choose_url: false
+      - label: Videos
+        name: videos
+        widget: list
+        required: false
+        hint: "Upload the video file from this computer. Not a YouTube link. Keep each file under 80 MB."
+        field:
+          label: Video
+          name: video
+          widget: file
+          choose_url: false
+          media_library:
+            allow_multiple: true
+
+  - name: site
+    label: Home
+    files:
+      - name: home
+        label: Home portrait
+        file: content/site/home.json
+        fields:
+          - {
+              label: Home portrait,
+              name: portrait,
+              widget: image,
+              required: false,
+              choose_url: false,
+              hint: "Your photograph for the first page. Not a place you visited.",
+            }

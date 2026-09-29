@@ -1,0 +1,1 @@
+function e(e){return(e.images?.length?e.images:[e.image]).filter(Boolean)}function t(t){return e(t)[0]??``}function n(e){return(e.videos??[]).filter(Boolean)}export{e as n,n as r,t};

@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-Cltr0gcK.js";import{s as t}from"./gsap-client-VXscnDYU.js";import{r as n}from"./media-Djp0tIyh.js";var r=e();function i({src:e,alt:i,className:a}){let o=n(e);return o?(0,r.jsx)(`img`,{src:o,alt:i,className:a}):(0,r.jsx)(`div`,{className:t(`bg-bg-subtle`,a)})}export{i as t};

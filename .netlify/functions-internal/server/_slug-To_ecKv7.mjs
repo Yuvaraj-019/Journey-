@@ -1,0 +1,141 @@
+import { C as require_jsx_runtime } from "./_libs/@tanstack/react-router+[...].mjs";
+import { t as ArrowLink } from "./_ssr/arrow-link-DAoNZH_A.mjs";
+import { b as getRegion, p as useJourneyBySlug, s as Route$6, u as NotFound } from "./_ssr/router-Bq6NahL2.mjs";
+import { t as SplitHeading } from "./_ssr/split-heading-DfqSvpiv.mjs";
+import { t as CtaBand } from "./_ssr/cta-band-cRinhzEv.mjs";
+import { r as useMediaUrl } from "./_ssr/media-D1sBE-my.mjs";
+import { t as Cover } from "./_ssr/cover-qbqzXd0F.mjs";
+import { n as journeyImages, r as journeyVideos, t as journeyCover } from "./_ssr/types-DVai5i6l.mjs";
+import { t as FieldNotes } from "./_ssr/field-notes-CEMbykL3.mjs";
+import { n as PhotoGallery } from "./_ssr/photo-gallery-B-I54swO.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/_slug-To_ecKv7.js
+var import_jsx_runtime = require_jsx_runtime();
+function VideoReel({ videos, title }) {
+	if (!videos.length) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		className: "border-t border-border px-5 py-16 md:px-10",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mx-auto max-w-6xl",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				"data-reveal": true,
+				className: "text-xs uppercase tracking-[0.22em] text-muted",
+				children: "Videos"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: `mt-8 grid gap-6 ${videos.length > 1 ? "md:grid-cols-2" : ""}`,
+				children: videos.map((src, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clip, {
+					src,
+					title: `${title} ${i + 1}`
+				}, `${src}-${i}`))
+			})]
+		})
+	});
+}
+function Clip({ src, title }) {
+	const url = useMediaUrl(src);
+	if (!url) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "aspect-video rounded-lg bg-bg-subtle" });
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		"data-clip": true,
+		className: "overflow-hidden rounded-lg bg-bg-subtle",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("video", {
+			className: "aspect-video w-full bg-bg",
+			src: url,
+			controls: true,
+			playsInline: true,
+			preload: "metadata",
+			children: title
+		})
+	});
+}
+function JourneyPage() {
+	const { slug } = Route$6.useParams();
+	const journey = useJourneyBySlug(slug);
+	if (!journey) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NotFound, {});
+	const region = getRegion(journey.region);
+	const continent = journey.continent || region?.continent || "";
+	const frames = journeyImages(journey);
+	const film = journeyVideos(journey);
+	const notes = journey.body.join("\n\n");
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", { children: [
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+			className: "relative min-h-[62vh] overflow-hidden md:min-h-[70vh]",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Cover, {
+					src: journeyCover(journey),
+					alt: "",
+					className: "absolute inset-0",
+					ken: true
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-bg/25" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "relative z-10 mx-auto flex min-h-[62vh] max-w-6xl flex-col justify-end px-4 pb-12 pt-28 sm:px-5 md:min-h-[70vh] md:px-10 md:pb-14",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							"data-reveal": "load",
+							className: "text-[11px] uppercase tracking-[0.22em] text-accent sm:text-xs",
+							children: [
+								continent,
+								journey.year,
+								"Field log"
+							].filter(Boolean).join(" · ")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SplitHeading, {
+							as: "h1",
+							text: journey.title,
+							delay: .08,
+							className: "font-display mt-3 max-w-4xl text-3xl leading-[1.1] md:text-5xl lg:text-6xl"
+						}),
+						journey.location ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							"data-reveal": "load",
+							className: "mt-4 max-w-2xl text-sm text-fg/80 md:text-base",
+							children: [journey.location, region && region.slug !== "world" ? ` · ${region.title}` : ""]
+						}) : null
+					]
+				})
+			]
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PhotoGallery, {
+			images: frames,
+			title: journey.title
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(VideoReel, {
+			videos: film,
+			title: journey.title
+		}),
+		notes.trim() ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+			className: "px-4 py-14 sm:px-5 md:px-10 md:py-16",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mx-auto max-w-3xl",
+				"data-reveal": true,
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-[11px] uppercase tracking-[0.22em] text-muted",
+						children: "Notes"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "mt-6",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FieldNotes, { text: notes })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "mt-10",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLink, {
+							to: "/places",
+							children: "All places"
+						})
+					})
+				]
+			})
+		}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+			className: "px-4 py-10 sm:px-5 md:px-10",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mx-auto max-w-3xl",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLink, {
+					to: "/places",
+					children: "All places"
+				})
+			})
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CtaBand, {})
+	] });
+}
+//#endregion
+export { JourneyPage as component };

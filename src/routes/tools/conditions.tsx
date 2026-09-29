@@ -1,0 +1,122 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { regions } from "@/data/regions";
+import { PageHero } from "@/components/layout/page-hero";
+import { CtaBand } from "@/components/layout/cta-band";
+import { cn } from "@/lib/utils";
+
+export const Route = createFileRoute("/tools/conditions")({
+  component: ConditionsPage,
+  head: () => ({ meta: [{ title: "Conditions desk — NORTHLINE" }] }),
+});
+
+const notes: Record<string, { season: string; window: string; caution: string }> = {
+  himalaya: {
+    season: "Oct–Nov for most circuits; spring is busier and more unstable high up.",
+    window: "Post-monsoon visibility. Start before the pass wind becomes a personality.",
+    caution: "Altitude itineraries that skip a night are fan fiction.",
+  },
+  andes: {
+    season: "Dry season varies by latitude — shoulder months beat the obvious holiday week.",
+    window: "High puna wants time. Don't stack a pass on day two.",
+    caution: "Afternoon lightning on exposed ridges is not a vibe. It's a schedule.",
+  },
+  alps: {
+    season: "July–September for hut-to-hut; September if you want manners.",
+    window: "Glacier hours are morning hours. Always.",
+    caution: "A crowded via ferrata in a storm is a different grade than the book.",
+  },
+  rockies: {
+    season: "July–September for high trails; winter is a different sport.",
+    window: "Off the summit before the thunder map turns on.",
+    caution: "Snowfields linger. Creek crossings in June are the crux.",
+  },
+  patagonia: {
+    season: "December–February, with extra food as a moral position.",
+    window: "The towers appear when they appear. Pack the wait.",
+    caution: "Wind is the character. Treat boardwalks and tents accordingly.",
+  },
+  sahara: {
+    season: "November–February. Heat is the itinerary the rest of the year.",
+    window: "Move at the edges of the day. Navigate by people who know wells.",
+    caution: "GPS is a backup. Water is the plan.",
+  },
+  arctic: {
+    season: "A short summer of bugs and light; winter is specialist country.",
+    window: "Travel smaller than the map. Rivers eat hours.",
+    caution: "Extraction is a story you don't want. Redundancy is kindness.",
+  },
+  "east-africa": {
+    season: "Dry months for highland walking; ask locally, not the algorithm.",
+    window: "Escarpment winds and altitude still apply close to the equator.",
+    caution: "Wildlife is not scenery. Distance is the ethic.",
+  },
+  japan: {
+    season: "Spring and autumn for pilgrim paths; summer is a different humidity.",
+    window: "Typhoon calendars are not optional reading.",
+    caution: "Snow on volcanoes lingers. The stamp office will wait.",
+  },
+  mediterranean: {
+    season: "April–June and September–October. Summer is a furnace on south faces.",
+    window: "Sea and limestone in the same day if you start early.",
+    caution: "Fire season and ferry strikes rewrite weeks. Have a harbour.",
+  },
+  "indian-subcontinent": {
+    season: "Depends on the wall of the country you're looking at. Monsoon is a character.",
+    window: "Approaches are half the journey. Budget the town days.",
+    caution: "Altitude plus festival crowds is a different mountain.",
+  },
+};
+
+function ConditionsPage() {
+  const [slug, setSlug] = useState(regions[0].slug);
+  const note = notes[slug];
+  const region = regions.find((r) => r.slug === slug)!;
+
+  return (
+    <main>
+      <PageHero
+        eyebrow="Field tool"
+        title="Conditions desk."
+        lede="Season notes I actually use. Not a forecast. A way of asking the range whether this is the week."
+      />
+      <section className="px-5 py-12 md:px-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex flex-wrap gap-2">
+            {regions.map((r) => (
+              <button
+                key={r.slug}
+                type="button"
+                onClick={() => setSlug(r.slug)}
+                className={cn(
+                  "rounded-full border px-3 py-1.5 text-xs uppercase tracking-[0.12em]",
+                  slug === r.slug
+                    ? "border-accent bg-bg-elevated text-fg"
+                    : "border-border text-muted hover:border-line",
+                )}
+              >
+                {r.title}
+              </button>
+            ))}
+          </div>
+          <div className="mt-12 grid gap-8 md:grid-cols-3">
+            <Note title="Season" text={note.season} />
+            <Note title="The window" text={note.window} />
+            <Note title="Caution" text={note.caution} />
+          </div>
+          <p className="mt-10 max-w-2xl text-sm leading-relaxed text-muted">{region.body}</p>
+        </div>
+      </section>
+      <CtaBand />
+    </main>
+  );
+}
+
+function Note({ title, text }: { title: string; text: string }) {
+  return (
+    <div className="border-t border-border pt-6">
+      <p className="text-xs uppercase tracking-[0.18em] text-muted">{title}</p>
+      <p className="mt-3 text-base leading-relaxed text-fg">{text}</p>
+    </div>
+  );
+}
