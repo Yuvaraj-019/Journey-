@@ -1,0 +1,12 @@
+{
+  "title": "Eiffel Tower",
+  "location": "Paris",
+  "country": "France",
+  "date": "2026-09-30",
+  "lat": 48.85837,
+  "lng": 2.294481,
+  "description": "The Eiffel Tower, one of the most recognizable landmarks in Paris. A visit here offers views across the city and the River Seine.",
+  "photos": [
+    "/uploads/screenshot-from-2025-09-08-17-55-57.png"
+  ]
+}
